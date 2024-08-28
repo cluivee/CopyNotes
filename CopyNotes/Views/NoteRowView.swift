@@ -28,7 +28,7 @@ struct NoteRowView: View {
         }.multilineTextAlignment(.leading)
             
         }
-        // bluebuttonstyle really is crucial to allow the button to fill the frame, in fact it has to be called in both this view, and also in the contentview to allow the frame modifiers to work
+        // bluebuttonstyle really is crucial to allow the button to fill the frame, in fact it has to be called in both this view, and also in the contentview to allow the frame modifiers to work now
         .buttonStyle(BlueButtonStyle())
        
     }
