@@ -21,6 +21,7 @@
 		891A97842C7F4E9800D4FA15 /* NSPredicate+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97832C7F4E9800D4FA15 /* NSPredicate+helper.swift */; };
 		891A97872C7F4FB700D4FA15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97862C7F4FB700D4FA15 /* SearchBar.swift */; };
 		891A97892C7F511700D4FA15 /* NoteRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97882C7F511700D4FA15 /* NoteRowView.swift */; };
+		89C881562C7FC0D500A92CB5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C881552C7FC0D500A92CB5 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		891A97832C7F4E9800D4FA15 /* NSPredicate+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+helper.swift"; sourceTree = "<group>"; };
 		891A97862C7F4FB700D4FA15 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		891A97882C7F511700D4FA15 /* NoteRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRowView.swift; sourceTree = "<group>"; };
+		89C881552C7FC0D500A92CB5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			children = (
 				891A97862C7F4FB700D4FA15 /* SearchBar.swift */,
 				891A97882C7F511700D4FA15 /* NoteRowView.swift */,
+				89C881552C7FC0D500A92CB5 /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				891A977F2C7E868100D4FA15 /* Note+helper.swift in Sources */,
 				891A97822C7F42BC00D4FA15 /* NoteSection.swift in Sources */,
 				891A97502C7E830100D4FA15 /* ContentView.swift in Sources */,
+				89C881562C7FC0D500A92CB5 /* DetailView.swift in Sources */,
 				891A977A2C7E833600D4FA15 /* Notes.xcdatamodeld in Sources */,
 				891A974E2C7E830100D4FA15 /* CopyNotesApp.swift in Sources */,
 				891A97872C7F4FB700D4FA15 /* SearchBar.swift in Sources */,

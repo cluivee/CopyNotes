@@ -10,6 +10,7 @@ import SwiftUI
 struct NoteRowView: View {
     
     var note : Note
+    var num: Int
     @Binding var selectedNote: Note?
     
     var body: some View {
@@ -18,14 +19,16 @@ struct NoteRowView: View {
             selectedNote = note
             copyToClipboard(bodyText: note.bodyText)
         }) {VStack(alignment: .leading, spacing: 5) {
-            Text("\(note.num). \(note.title)")
+            Text("\(String(num+1)). \(note.title)")
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
             Text(note.bodyText)
                 .fontWeight(.light)
                 .truncationMode(.tail)
-        }.multilineTextAlignment(.leading)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(5)
             
         }
         // bluebuttonstyle really is crucial to allow the button to fill the frame, in fact it has to be called in both this view, and also in the contentview to allow the frame modifiers to work now
@@ -34,13 +37,11 @@ struct NoteRowView: View {
     }
     
     private func copyToClipboard(bodyText: String) {
-        if bodyText != nil {
+        
             let pasteboard = NSPasteboard.general
             pasteboard.clearContents()
             pasteboard.setString(bodyText, forType: .string)
-        } else {
-            print("selected Index is nil" )
-        }
+    
     }
     
 }

@@ -22,30 +22,47 @@ struct ContentView: View {
             VStack{
                 SearchBar()
                 Text(String(describing: selectedNote))
+                
+                // In the context of enumerated, the enumerated method turns an array of elements into an array of tuples. The '1' part is the second part of the tuple, which is the element itself
                 List() {
-                    ForEach(notes) {note in
+                    ForEach(Array(notes.enumerated()), id: \.1.id) {num, note in
                         Button(action: {
                             selectedNote = note
                             copyToClipboard(bodyText: note.bodyText)
                         }) {
-                            NoteRowView(note: note, selectedNote: $selectedNote)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(5)
-                                
-                            
+                            NoteRowView(note: note, num: num, selectedNote: $selectedNote)
                         }
-                       
                         .buttonStyle(BlueButtonStyle())
+                        .contextMenu {
+                            Button(action: {
+                                deleteSelectedNote(deletedNote: note)
+                            }){
+                                Text("Delete")
+                            }
+                        }
                     }
                     
                 }
-                Button(action: {
-                    addNote()
-                }) {
-                    Image(systemName: "plus")
-                        .resizable()
-                        .frame(width: 24.0, height: 24.0)
+                .frame(minWidth: 250, maxWidth: 350)
+                .toolbar {
+                    ToolbarItemGroup {
+                        Spacer()
+                        Button(action: {
+                            addNote()
+                        }) {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .frame(width: 24.0, height: 24.0)
+                        }
+                    }
                 }
+            }
+            
+            if let selected = selectedNote {
+                DetailView(note: selected, deleteFunction: {deleteSelectedNote(deletedNote: selected)})
+            } else {
+                Text("No note selected")
+                    .padding()
             }
             
         }
@@ -54,11 +71,10 @@ struct ContentView: View {
     
     // MARK: functions:
     private func copyToClipboard(bodyText: String) {
-        if bodyText != nil {
             let pasteboard = NSPasteboard.general
             pasteboard.clearContents()
             pasteboard.setString(bodyText, forType: .string)
-        }
+        
     }
     
     private func addNote() {
@@ -68,6 +84,11 @@ struct ContentView: View {
             PersistenceController.shared.save()
         }
         
+    }
+    
+    private func deleteSelectedNote(deletedNote: Note) {
+        context.delete(deletedNote)
+        PersistenceController.shared.save()
     }
     
 }
