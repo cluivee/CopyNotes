@@ -19,7 +19,7 @@ struct NoteRowView: View {
             selectedNote = note
             copyToClipboard(bodyText: note.bodyText)
         }) {VStack(alignment: .leading, spacing: 5) {
-            Text("\(String(num+1)). \(note.title)")
+            Text("\(String(num)). \(note.title)")
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)

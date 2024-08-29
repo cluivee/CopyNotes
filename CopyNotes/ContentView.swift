@@ -21,8 +21,6 @@ struct ContentView: View {
         NavigationView  {
             VStack{
                 SearchBar()
-                Text(String(describing: selectedNote))
-                
                 // In the context of enumerated, the enumerated method turns an array of elements into an array of tuples. The '1' part is the second part of the tuple, which is the element itself
                 List() {
                     ForEach(Array(notes.enumerated()), id: \.1.id) {num, note in
@@ -30,7 +28,7 @@ struct ContentView: View {
                             selectedNote = note
                             copyToClipboard(bodyText: note.bodyText)
                         }) {
-                            NoteRowView(note: note, num: num, selectedNote: $selectedNote)
+                            NoteRowView(note: note, num: note.num, selectedNote: $selectedNote)
                         }
                         .buttonStyle(BlueButtonStyle())
                         .contextMenu {
@@ -40,7 +38,7 @@ struct ContentView: View {
                                 Text("Delete")
                             }
                         }
-                    }
+                    }.onMove(perform: moveNotes)
                     
                 }
                 .frame(minWidth: 250, maxWidth: 350)
@@ -56,6 +54,8 @@ struct ContentView: View {
                         }
                     }
                 }
+                
+                Text(String(describing: selectedNote))
             }
             
             if let selected = selectedNote {
@@ -88,7 +88,34 @@ struct ContentView: View {
     
     private func deleteSelectedNote(deletedNote: Note) {
         context.delete(deletedNote)
+        
+        // These two lines are just to create another array, so we can filter through that array and remove the deleted note, as we don't seem to be able to use array methods (such as .remove) on the fetchedResults directly
+        var revisedNotes = notes.map{ $0 }
+        
+        if let idx = revisedNotes.firstIndex(where: { $0 === deletedNote }) {
+            revisedNotes.remove(at: idx)
+        }
+        
+        for (index, note) in revisedNotes.enumerated() {
+            note.num = index + 1
+        }
         PersistenceController.shared.save()
+    }
+    
+    private func moveNotes(from source: IndexSet, to destination: Int) {
+        // Make an array of items from fetched results
+//        var revisedNotes = notes.sorted { $0.num < $1.num }
+        var revisedNotes = notes.map{ $0 }
+        
+        // This line moves the item. The IndexSet contains all the items that are to be moved (usually just one item), and the destination (an Int) contains the position where it will be moved to
+        revisedNotes.move(fromOffsets: source, toOffset: destination)
+        
+        // renumber in reverse order to minimise changes to the indices
+        for reverseIndex in stride(from: revisedNotes.count - 1, through: 0, by: -1 )
+            {revisedNotes[reverseIndex].num = reverseIndex + 1}
+        
+        PersistenceController.shared.save()
+        
     }
     
 }

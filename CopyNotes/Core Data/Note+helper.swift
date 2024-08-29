@@ -10,6 +10,11 @@ import CoreData
 
 extension Note {
     
+    var num: Int {
+        get {Int(num_)}
+        set {num_ = Int32(newValue)}
+    }
+    
     var title: String {
         get { title_ ?? "New Title" }
         set { title_ = newValue }
@@ -44,6 +49,13 @@ extension Note {
     public override func awakeFromInsert() {
         self.id_ = UUID()
         self.dateCreated_ = Date()
+        
+        // Getting the count of the entities
+        guard let context = self.managedObjectContext else { return }
+        
+        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+        let count = (try? context.count(for: fetchRequest)) ?? 0
+        self.num_ = Int32(count)
     }
     
     static func delete(note: Note) {
@@ -53,7 +65,7 @@ extension Note {
     
     static func fetch (_ predicate: NSPredicate = .all) -> NSFetchRequest<Note> {
         let request = Note.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Note.num, ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Note.num_, ascending: true)]
         
         request.predicate = predicate
         

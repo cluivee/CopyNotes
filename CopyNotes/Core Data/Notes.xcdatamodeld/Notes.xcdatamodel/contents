@@ -5,7 +5,7 @@
         <attribute name="dateCreated_" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="headerText" optional="YES" attributeType="String"/>
         <attribute name="id_" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="num" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="num_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title_" optional="YES" attributeType="String"/>
     </entity>
     <elements>
