@@ -15,6 +15,7 @@ struct ContentView: View {
     
     @State private var selectedNote: Note?
     @State private var searchTerm = ""
+    @State private var isEditingMode = false
     
     // Using a computed property here to filter the notes for the searchbar, but maybe using a predicate might have better performance
     var filteredNotes: [Note] {
@@ -24,7 +25,6 @@ struct ContentView: View {
             return notes.filter { $0.title.localizedCaseInsensitiveContains(searchTerm) }
         }
     }
-    
     
     
     var body: some View {
@@ -69,7 +69,7 @@ struct ContentView: View {
             }
             
             if let selected = selectedNote {
-                DetailView(note: selected, deleteFunction: {deleteSelectedNote(deletedNote: selected)})
+                DetailView(note: selected, isEditingMode: $isEditingMode, deleteFunction: {deleteSelectedNote(deletedNote: selected)})
             } else {
                 Text("No note selected")
                     .padding()
@@ -88,6 +88,7 @@ struct ContentView: View {
     }
     
     private func addNote() {
+        isEditingMode = true
         if notes.count < 20 {
             let newNote = Note(title: "New Title", bodyText: "New bodyText", context: context)
             selectedNote = newNote
@@ -127,7 +128,6 @@ struct ContentView: View {
         PersistenceController.shared.save()
         
     }
-    
 }
 
 

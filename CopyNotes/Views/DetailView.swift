@@ -7,10 +7,25 @@
 
 import SwiftUI
 
+
+// This is just to make the texteditor background transparent. This sets all TextViews background to .clear
+//extension NSTextView {
+//    open override var frame: CGRect {
+//        didSet {
+//            backgroundColor = .clear //<<here clear
+//            drawsBackground = true
+//        }
+//
+//    }
+//}
+
+
 struct DetailView: View {
     @Environment(\.managedObjectContext) var context
     @ObservedObject var note: Note
+    @Binding var isEditingMode: Bool
     var deleteFunction: () -> Void
+    
     
     var body: some View {
         VStack {
@@ -19,16 +34,43 @@ struct DetailView: View {
                 .border(.clear)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding([.top, .leading], 4)
-            TextEditor(text: $note.bodyText)
-                .font(.title3)
-            Spacer()
+            
+            if isEditingMode {
+                TextEditor(text: $note.bodyText)
+                    .font(.title3)
+                    .border(.blue)
+            } else {
+                ScrollView{
+                    Text(note.bodyText)
+                        .padding(.leading, 5)
+                        .padding(.trailing, 18)
+                        .font(.title3)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .border(.blue)
+                }
+                
+            }
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(EdgeInsets(top: 20, leading: 50, bottom: 20, trailing: 50))
         .toolbar {
             ToolbarItemGroup{
-                Button("Edit") {}
-                Button("Save") {}
+                Button(action: {
+                    if isEditingMode {
+                        isEditingMode.toggle()
+                        PersistenceController.shared.save()
+                        print("We saved")
+                    } else {
+                        isEditingMode.toggle()
+                    }}
+                )
+                {
+                    Text("Edit Mode")
+                           .hidden()
+                           .overlay(Text(isEditingMode ? "Save" : "Edit Mode"))
+                }
+                .buttonStyle(BorderedButtonStyle())
                 Button("Copy") {copyToClipboard(bodyText: note.bodyText)}
                 // Ok So apparently this was messing up the spacer in the sidebar
                 //                Spacer().frame(width: 50)
@@ -38,10 +80,10 @@ struct DetailView: View {
     }
     
     private func copyToClipboard(bodyText: String) {
-            let pasteboard = NSPasteboard.general
-            pasteboard.clearContents()
-            pasteboard.setString(bodyText, forType: .string)
-    
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(bodyText, forType: .string)
+        
     }
 }
 
