@@ -14,16 +14,26 @@ struct ContentView: View {
     var notes: FetchedResults<Note>
     
     @State private var selectedNote: Note?
-    @State private var searchText = ""
+    @State private var searchTerm = ""
+    
+    // Using a computed property here to filter the notes for the searchbar, but maybe using a predicate might have better performance
+    var filteredNotes: [Note] {
+        if searchTerm.isEmpty {
+            return Array(notes)
+        } else {
+            return notes.filter { $0.title.localizedCaseInsensitiveContains(searchTerm) }
+        }
+    }
+    
     
     
     var body: some View {
         NavigationView  {
             VStack{
-                SearchBar()
+                SearchBar(searchText: $searchTerm)
                 // In the context of enumerated, the enumerated method turns an array of elements into an array of tuples. The '1' part is the second part of the tuple, which is the element itself
                 List() {
-                    ForEach(Array(notes.enumerated()), id: \.1.id) {num, note in
+                    ForEach(Array(filteredNotes.enumerated()), id: \.1.id) {num, note in
                         Button(action: {
                             selectedNote = note
                             copyToClipboard(bodyText: note.bodyText)
@@ -71,14 +81,14 @@ struct ContentView: View {
     
     // MARK: functions:
     private func copyToClipboard(bodyText: String) {
-            let pasteboard = NSPasteboard.general
-            pasteboard.clearContents()
-            pasteboard.setString(bodyText, forType: .string)
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(bodyText, forType: .string)
         
     }
     
     private func addNote() {
-        if notes.count < 6 {
+        if notes.count < 20 {
             let newNote = Note(title: "New Title", bodyText: "New bodyText", context: context)
             selectedNote = newNote
             PersistenceController.shared.save()
@@ -104,7 +114,7 @@ struct ContentView: View {
     
     private func moveNotes(from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-//        var revisedNotes = notes.sorted { $0.num < $1.num }
+        //        var revisedNotes = notes.sorted { $0.num < $1.num }
         var revisedNotes = notes.map{ $0 }
         
         // This line moves the item. The IndexSet contains all the items that are to be moved (usually just one item), and the destination (an Int) contains the position where it will be moved to
@@ -112,7 +122,7 @@ struct ContentView: View {
         
         // renumber in reverse order to minimise changes to the indices
         for reverseIndex in stride(from: revisedNotes.count - 1, through: 0, by: -1 )
-            {revisedNotes[reverseIndex].num = reverseIndex + 1}
+        {revisedNotes[reverseIndex].num = reverseIndex + 1}
         
         PersistenceController.shared.save()
         

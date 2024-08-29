@@ -7,14 +7,21 @@
 
 import SwiftUI
 
+
 struct SearchBar: View {
+    
+    @Binding var searchText: String
+    
     var body: some View {
-        Text("This is a Searchbar")
+        TextField("Search", text: $searchText)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .padding()
+
     }
 }
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar()
+        SearchBar(searchText: .constant(""))
     }
 }
