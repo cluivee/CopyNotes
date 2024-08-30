@@ -27,7 +27,7 @@ struct DetailView: View {
     var deleteFunction: () -> Void
     // Storing a bool to detect when the mouse is hovering over a view
     @State private var overText = false
-    
+    @State private var alertIsShowing = false
     
     var body: some View {
         VStack {
@@ -81,6 +81,7 @@ struct DetailView: View {
                 Button("Delete") {deleteFunction()}
             }
         }
+
     }
     
     private func copyToClipboard(bodyText: String) {

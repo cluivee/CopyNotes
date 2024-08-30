@@ -5,6 +5,7 @@
 //  Created by Clive on 27/08/2024.
 //
 
+
 import SwiftUI
 
 struct ContentView: View {
@@ -16,6 +17,8 @@ struct ContentView: View {
     @State private var selectedNote: Note?
     @State private var searchTerm = ""
     @State private var isEditingMode = false
+    @State private var alertIsShowing = false
+    
     
     // Using a computed property here to filter the notes for the searchbar, but maybe using a predicate might have better performance
     var filteredNotes: [Note] {
@@ -57,6 +60,7 @@ struct ContentView: View {
                         Spacer()
                         Button(action: {
                             addNote()
+                            
                         }) {
                             Image(systemName: "plus")
                                 .resizable()
@@ -76,6 +80,10 @@ struct ContentView: View {
             }
             
         }
+        .alert(isPresented: $alertIsShowing) {
+            // single button Alert
+            Alert(title: Text("Maximum number of notes is 100"))
+        }
         
     }
     
@@ -89,10 +97,13 @@ struct ContentView: View {
     
     private func addNote() {
         isEditingMode = true
-        if notes.count < 20 {
+        if notes.count < 100 {
             let newNote = Note(title: "New Title", bodyText: "New bodyText", context: context)
             selectedNote = newNote
+            //            scrollValue.scrollTo(selectedNote?.id, anchor: .bottom)
             PersistenceController.shared.save()
+        } else {
+            alertIsShowing.toggle()
         }
         
     }
