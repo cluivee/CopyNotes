@@ -25,6 +25,8 @@ struct DetailView: View {
     @ObservedObject var note: Note
     @Binding var isEditingMode: Bool
     var deleteFunction: () -> Void
+    // Storing a bool to detect when the mouse is hovering over a view
+    @State private var overText = false
     
     
     var body: some View {
@@ -46,7 +48,10 @@ struct DetailView: View {
                         .padding(.trailing, 18)
                         .font(.title3)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .border(.blue)
+                        .onHover { over in
+                            overText = over
+                        }
+                        .border(overText ? .green: .blue)
                 }
                 
             }
@@ -60,15 +65,14 @@ struct DetailView: View {
                     if isEditingMode {
                         isEditingMode.toggle()
                         PersistenceController.shared.save()
-                        print("We saved")
                     } else {
                         isEditingMode.toggle()
                     }}
                 )
                 {
                     Text("Edit Mode")
-                           .hidden()
-                           .overlay(Text(isEditingMode ? "Save" : "Edit Mode"))
+                        .hidden()
+                        .overlay(Text(isEditingMode ? "Save" : "Edit Mode"))
                 }
                 .buttonStyle(BorderedButtonStyle())
                 Button("Copy") {copyToClipboard(bodyText: note.bodyText)}

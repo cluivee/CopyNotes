@@ -103,13 +103,23 @@ struct ContentView: View {
         // These two lines are just to create another array, so we can filter through that array and remove the deleted note, as we don't seem to be able to use array methods (such as .remove) on the fetchedResults directly
         var revisedNotes = notes.map{ $0 }
         
+        // This is just to remember the index of the note which was deleted, so we can later update selectednote to the note that was before it
+        var rememberedIndex = 0
         if let idx = revisedNotes.firstIndex(where: { $0 === deletedNote }) {
+            rememberedIndex = idx-1
             revisedNotes.remove(at: idx)
         }
         
         for (index, note) in revisedNotes.enumerated() {
+            print("the deleted note was at index: ", rememberedIndex)
+            if (index == rememberedIndex) {
+                selectedNote = note
+            }
+            print(index," : ")
             note.num = index + 1
         }
+        
+        
         PersistenceController.shared.save()
     }
     
