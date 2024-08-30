@@ -69,7 +69,7 @@ struct ContentView: View {
                     }
                 }
                 
-                Text(String(describing: selectedNote))
+                Text(String(describing: notes))
             }
             
             if let selected = selectedNote {

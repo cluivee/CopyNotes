@@ -22,6 +22,7 @@
 		891A97872C7F4FB700D4FA15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97862C7F4FB700D4FA15 /* SearchBar.swift */; };
 		891A97892C7F511700D4FA15 /* NoteRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97882C7F511700D4FA15 /* NoteRowView.swift */; };
 		89C881562C7FC0D500A92CB5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C881552C7FC0D500A92CB5 /* DetailView.swift */; };
+		89C8815A2C8238C300A92CB5 /* TextFieldObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C881592C8238C300A92CB5 /* TextFieldObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		891A97862C7F4FB700D4FA15 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		891A97882C7F511700D4FA15 /* NoteRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRowView.swift; sourceTree = "<group>"; };
 		89C881552C7FC0D500A92CB5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		89C881592C8238C300A92CB5 /* TextFieldObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		891A97412C7E830100D4FA15 = {
 			isa = PBXGroup;
 			children = (
+				89C881592C8238C300A92CB5 /* TextFieldObserver.swift */,
 				891A974C2C7E830100D4FA15 /* CopyNotes */,
 				891A975E2C7E830400D4FA15 /* CopyNotesTests */,
 				891A97682C7E830400D4FA15 /* CopyNotesUITests */,
@@ -309,6 +312,7 @@
 				891A97892C7F511700D4FA15 /* NoteRowView.swift in Sources */,
 				891A97842C7F4E9800D4FA15 /* NSPredicate+helper.swift in Sources */,
 				891A977C2C7E858700D4FA15 /* PersistenceController.swift in Sources */,
+				89C8815A2C8238C300A92CB5 /* TextFieldObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
