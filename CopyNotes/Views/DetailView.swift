@@ -50,8 +50,6 @@ struct DetailView: View {
     
     var body: some View {
         VStack {
-            Text(String(describing: counter))
-                Text(String(describing: isNewNoteTitle))
             TextField("Title", text: $textObserver.currentTitle)
                 .font(.title.bold())
                 .border(.clear)
@@ -65,13 +63,7 @@ struct DetailView: View {
                         isNewNoteTitle = false
                     }
                 }
-                .onChange(of: note) {val in
-                    textObserver.currentTitle = val.title
-                    isNewNoteTitle = true
-                    print("has note changed")
-                    // This is where we're saving when the note is changed. Maybe it makes more sense to do this in ContentView but for now it works
-                    PersistenceController.shared.save()
-                }
+                
             if isEditingMode {
                 TextEditor(text: $textObserver.currentBodyText)
                     .font(.title3)
@@ -83,12 +75,6 @@ struct DetailView: View {
                         } else {
                             isNewNoteBody = false
                         }
-                    }
-                    .onChange(of: note) {val in
-                        textObserver.currentBodyText = val.bodyText
-                        isNewNoteBody = true
-                        print("has note changed in body")
-                        PersistenceController.shared.save()
                     }
             } else {
                 ScrollView{
@@ -102,13 +88,18 @@ struct DetailView: View {
                         }
                         .border(overText ? .green: .blue)
                 }
-                
             }
-            
         }
-        .onChange(of: textObserver.debouncedBodyText) {val in
-            counter += 1
+        .onChange(of: note) {val in
+            textObserver.currentTitle = val.title
+            textObserver.currentBodyText = val.bodyText
+            isNewNoteTitle = true
+            isNewNoteBody = true
+            print("has note changed")
+            // This is where we're saving when the note is changed. Maybe it makes more sense to do this in ContentView but for now it works
+            PersistenceController.shared.save()
         }
+        
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(EdgeInsets(top: 20, leading: 50, bottom: 20, trailing: 50))
         .toolbar {

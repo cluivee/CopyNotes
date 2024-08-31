@@ -16,7 +16,7 @@ class TextFieldObserver<Value>: ObservableObject {
     @Published var currentBodyText: Value
     @Published var debouncedBodyText: Value
     
-    init(initialTitle: Value, initialBodyText: Value, delay: Double = 1.0) {
+    init(initialTitle: Value, initialBodyText: Value, delay: Double = 0.5) {
         
         // careful here, the first "initialValue" is a parameter of Published, the value after that is the parameter "initalValue" from the initialiser. This is why it is really confusing when people call variables the same as actual parameters
         
