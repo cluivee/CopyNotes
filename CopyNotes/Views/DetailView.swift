@@ -22,11 +22,6 @@ import Combine
 
 
 
-
-
-
-
-
 struct DetailView: View {
     @Environment(\.managedObjectContext) var context
     
@@ -39,7 +34,9 @@ struct DetailView: View {
     // Storing a bool to detect when the mouse is hovering over a view
     @State private var overText = false
     @State private var alertIsShowing = false
-    @State private var isNewNote = false
+    // Booleans to prevent extra debouncing if we are simply switching notes
+    @State private var isNewNoteTitle = false
+    @State private var isNewNoteBody = false
     @State private var counter = 0
     
     init(note: Note, isEditingMode: Binding<Bool>, deleteFunction: @escaping () -> Void) {
@@ -54,24 +51,23 @@ struct DetailView: View {
     var body: some View {
         VStack {
             Text(String(describing: counter))
-                Text(String(describing: isNewNote))
+                Text(String(describing: isNewNoteTitle))
             TextField("Title", text: $textObserver.currentTitle)
                 .font(.title.bold())
                 .border(.clear)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding([.top, .leading], 4)
                 .onChange(of: textObserver.debouncedTitle) { val in
-                    if !isNewNote {
+                    if !isNewNoteTitle {
                         note.title = val
                         print("Is this working, the title is debouncing: ", val)
                     } else {
-                        isNewNote = false
+                        isNewNoteTitle = false
                     }
                 }
                 .onChange(of: note) {val in
                     textObserver.currentTitle = val.title
-                    textObserver.currentBodyText = val.bodyText
-                    isNewNote = true
+                    isNewNoteTitle = true
                     print("has note changed")
                     // This is where we're saving when the note is changed. Maybe it makes more sense to do this in ContentView but for now it works
                     PersistenceController.shared.save()
@@ -81,12 +77,18 @@ struct DetailView: View {
                     .font(.title3)
                     .border(.blue)
                     .onChange(of: textObserver.debouncedBodyText) { val in
-                        if !isNewNote {
+                        if !isNewNoteBody {
                             note.bodyText = val
                             print("Is this working, the bodyText is debouncing: ", val)
                         } else {
-                            isNewNote = false
+                            isNewNoteBody = false
                         }
+                    }
+                    .onChange(of: note) {val in
+                        textObserver.currentBodyText = val.bodyText
+                        isNewNoteBody = true
+                        print("has note changed in body")
+                        PersistenceController.shared.save()
                     }
             } else {
                 ScrollView{
