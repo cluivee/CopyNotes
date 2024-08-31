@@ -9,15 +9,15 @@ import SwiftUI
 import Combine
 
 // This is just to make the texteditor background transparent. This sets all TextViews background to .clear
-//extension NSTextView {
-//    open override var frame: CGRect {
-//        didSet {
-//            backgroundColor = .clear //<<here clear
-//            drawsBackground = true
-//        }
-//
-//    }
-//}
+extension NSTextView {
+    open override var frame: CGRect {
+        didSet {
+            backgroundColor = .clear //<<here clear
+            drawsBackground = true
+        }
+
+    }
+}
 
 
 
@@ -52,6 +52,8 @@ struct DetailView: View {
         VStack {
             TextField("Title", text: $textObserver.currentTitle)
                 .font(.title.bold())
+            // adding padding of 8 everywhere just so the borders have better spacing
+                .padding(8)
                 .border(.clear)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding([.top, .leading], 4)
@@ -63,11 +65,12 @@ struct DetailView: View {
                         isNewNoteTitle = false
                     }
                 }
-                
+            
             if isEditingMode {
                 TextEditor(text: $textObserver.currentBodyText)
                     .font(.title3)
-                    .border(.blue)
+                    .padding(8)
+                //                    .border(.blue)
                     .onChange(of: textObserver.debouncedBodyText) { val in
                         if !isNewNoteBody {
                             note.bodyText = val
@@ -79,14 +82,26 @@ struct DetailView: View {
             } else {
                 ScrollView{
                     Text(note.bodyText)
+                    
                         .padding(.leading, 5)
                         .padding(.trailing, 18)
+                        .padding(5)
+                    
+                    
                         .font(.title3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .onHover { over in
                             overText = over
                         }
-                        .border(overText ? .green: .blue)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(overText ? Color("highlightYellow") : .clear, lineWidth: 3)
+                        )
+                        .background(overText ? Color.black : .clear)
+                        .foregroundColor(overText ? Color("whiteTextColor"): .primary)
+                        .padding(3)
+                    
+                    
                 }
             }
         }
@@ -99,9 +114,8 @@ struct DetailView: View {
             // This is where we're saving when the note is changed. Maybe it makes more sense to do this in ContentView but for now it works
             PersistenceController.shared.save()
         }
-        
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(EdgeInsets(top: 20, leading: 50, bottom: 20, trailing: 50))
+        .padding(EdgeInsets(top: 20, leading: 45, bottom: 20, trailing: 45))
         .toolbar {
             ToolbarItemGroup{
                 Button(action: {
