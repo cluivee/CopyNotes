@@ -117,7 +117,7 @@ struct ContentView: View {
     private func addNote(scrollValue: ScrollViewProxy) {
         isEditingMode = true
         if notes.count < 100 {
-            let newNote = Note(title: "New Title", bodyText: "New bodyText", context: context)
+            let newNote = Note(title: "Title", bodyText: "", context: context)
             selectedNote = newNote
             print("first count: ", notes.count)
             

@@ -82,12 +82,9 @@ struct DetailView: View {
             } else {
                 ScrollView{
                     Text(note.bodyText)
-                    
                         .padding(.leading, 5)
                         .padding(.trailing, 18)
                         .padding(5)
-                    
-                    
                         .font(.title3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .onHover { over in
@@ -95,9 +92,9 @@ struct DetailView: View {
                         }
                         .overlay(
                             RoundedRectangle(cornerRadius: 5)
-                                .stroke(overText ? Color("highlightYellow") : .clear, lineWidth: 3)
+                                .stroke(overText ? Color("orangeBorderColor") : Color.accentColor, lineWidth: 3)
                         )
-                        .background(overText ? Color.black : .clear)
+                        .background(Color.black)
                         .foregroundColor(overText ? Color("whiteTextColor"): .primary)
                         .padding(3)
                     
@@ -132,11 +129,15 @@ struct DetailView: View {
                         .overlay(Text(isEditingMode ? "Save" : "Edit Mode"))
                 }
                 .buttonStyle(BorderedButtonStyle())
+                .foregroundColor(Color("highlightYellow"))
                 Button("Copy") {copyToClipboard(bodyText: note.bodyText)}
+                .foregroundColor(Color("highlightYellow"))
                 // Ok So apparently this was messing up the spacer in the sidebar
                 //                Spacer().frame(width: 50)
                 Button("Delete") {deleteFunction()}
+                .foregroundColor(Color("highlightYellow"))
             }
+            
         }
         
         
