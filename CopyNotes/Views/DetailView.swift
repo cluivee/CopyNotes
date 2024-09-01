@@ -97,6 +97,9 @@ struct DetailView: View {
                         .background(Color.black)
                         .foregroundColor(overText ? Color("whiteTextColor"): .primary)
                         .padding(3)
+                        .onTapGesture(){
+                            copyToClipboard(bodyText: note.bodyText)
+                        }
                     
                     
                 }
