@@ -26,18 +26,21 @@ struct DetailView: View {
     @Environment(\.managedObjectContext) var context
     
     @ObservedObject var note: Note
-    //    @StateObject private var textObserver: TextFieldObserver
+    
     @StateObject private var textObserver: TextFieldObserver<String>
     
     @Binding var isEditingMode: Bool
     var deleteFunction: () -> Void
     // Storing a bool to detect when the mouse is hovering over a view
     @State private var overText = false
-    @State private var alertIsShowing = false
+    @State private var charAlertShowing = false
     // Booleans to prevent extra debouncing if we are simply switching notes
     @State private var isNewNoteTitle = false
     @State private var isNewNoteBody = false
     @State private var counter = 0
+    
+    // max number of characters in the texteditor
+    let charLimit = 10000
     
     init(note: Note, isEditingMode: Binding<Bool>, deleteFunction: @escaping () -> Void) {
         self.note = note
@@ -70,7 +73,6 @@ struct DetailView: View {
                 TextEditor(text: $textObserver.currentBodyText)
                     .font(.title3)
                     .padding(8)
-                //                    .border(.blue)
                     .onChange(of: textObserver.debouncedBodyText) { val in
                         if !isNewNoteBody {
                             note.bodyText = val
@@ -78,6 +80,9 @@ struct DetailView: View {
                         } else {
                             isNewNoteBody = false
                         }
+                    }
+                    .onReceive(Just(textObserver.currentBodyText)) { _ in
+                        limitText(charLimit)
                     }
             } else {
                 ScrollView{
@@ -142,8 +147,19 @@ struct DetailView: View {
             }
             
         }
+        .alert(isPresented: $charAlertShowing) {
+            // single button Alert
+            Alert(title: Text("Maximum number of characters is 10,000"))
+        }
         
-        
+    }
+    
+    // function to limit text length
+    func limitText(_ upper: Int) {
+        if textObserver.currentBodyText.count > upper {
+            textObserver.currentBodyText = String(textObserver.currentBodyText.prefix(upper))
+            charAlertShowing.toggle()
+        }
     }
 }
 

@@ -101,7 +101,7 @@ struct ContentView: View {
             }
             .alert(isPresented: $alertIsShowing) {
                 // single button Alert
-                Alert(title: Text("Maximum number of notes is 100"))
+                Alert(title: Text("Maximum number of notes is 1000"))
             }
         }
     }
@@ -116,7 +116,7 @@ struct ContentView: View {
     
     private func addNote(scrollValue: ScrollViewProxy) {
         isEditingMode = true
-        if notes.count < 100 {
+        if notes.count < 1000 {
             let newNote = Note(title: "Title", bodyText: "", context: context)
             selectedNote = newNote
             print("first count: ", notes.count)
