@@ -1,6 +1,6 @@
 # Snippets Board
 
-Snippets Board macOS app written with Swift and SwiftUI.
+Snippets Board macOS app written with Swift, SwiftUI and Core Data.
 
 Create a board of commonly used text snippets (code snippets, addresses, email addresses) that you can copy to the clipboard with one-click.
 
