@@ -143,11 +143,10 @@ struct ContentView: View {
         }
         
         for (index, note) in revisedNotes.enumerated() {
-            print("the deleted note was at index: ", rememberedIndex)
+//            print("the deleted note was at index: ", rememberedIndex)
             if (index == rememberedIndex) {
                 selectedNote = note
             }
-            print(index," : ")
             note.num = index + 1
         }
         

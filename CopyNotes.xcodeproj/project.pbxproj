@@ -21,6 +21,8 @@
 		891A97842C7F4E9800D4FA15 /* NSPredicate+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97832C7F4E9800D4FA15 /* NSPredicate+helper.swift */; };
 		891A97872C7F4FB700D4FA15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97862C7F4FB700D4FA15 /* SearchBar.swift */; };
 		891A97892C7F511700D4FA15 /* NoteRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97882C7F511700D4FA15 /* NoteRowView.swift */; };
+		89501FCC2C87A5AB00FE69A0 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 89501FCB2C87A5AB00FE69A0 /* Sparkle */; };
+		89501FCE2C87B20300FE69A0 /* CheckForUpdatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89501FCD2C87B20300FE69A0 /* CheckForUpdatesViewModel.swift */; };
 		89C881562C7FC0D500A92CB5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C881552C7FC0D500A92CB5 /* DetailView.swift */; };
 		89C8815A2C8238C300A92CB5 /* TextFieldObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C881592C8238C300A92CB5 /* TextFieldObserver.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,7 @@
 		891A97832C7F4E9800D4FA15 /* NSPredicate+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+helper.swift"; sourceTree = "<group>"; };
 		891A97862C7F4FB700D4FA15 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		891A97882C7F511700D4FA15 /* NoteRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRowView.swift; sourceTree = "<group>"; };
+		89501FCD2C87B20300FE69A0 /* CheckForUpdatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForUpdatesViewModel.swift; sourceTree = "<group>"; };
 		89A302A22C850DD100080670 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		89C881552C7FC0D500A92CB5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		89C881592C8238C300A92CB5 /* TextFieldObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldObserver.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89501FCC2C87A5AB00FE69A0 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +98,6 @@
 		891A97412C7E830100D4FA15 = {
 			isa = PBXGroup;
 			children = (
-				89C881592C8238C300A92CB5 /* TextFieldObserver.swift */,
 				891A974C2C7E830100D4FA15 /* CopyNotes */,
 				891A975E2C7E830400D4FA15 /* CopyNotesTests */,
 				891A97682C7E830400D4FA15 /* CopyNotesUITests */,
@@ -116,9 +119,11 @@
 			isa = PBXGroup;
 			children = (
 				89A302A22C850DD100080670 /* Info.plist */,
+				89C881592C8238C300A92CB5 /* TextFieldObserver.swift */,
 				891A97812C7F42BC00D4FA15 /* NoteSection.swift */,
 				891A974D2C7E830100D4FA15 /* CopyNotesApp.swift */,
 				891A974F2C7E830100D4FA15 /* ContentView.swift */,
+				89501FCD2C87B20300FE69A0 /* CheckForUpdatesViewModel.swift */,
 				891A97852C7F4F7E00D4FA15 /* Views */,
 				891A97512C7E830400D4FA15 /* Assets.xcassets */,
 				891A97562C7E830400D4FA15 /* CopyNotes.entitlements */,
@@ -190,6 +195,9 @@
 			dependencies = (
 			);
 			name = CopyNotes;
+			packageProductDependencies = (
+				89501FCB2C87A5AB00FE69A0 /* Sparkle */,
+			);
 			productName = CopyNotes;
 			productReference = 891A974A2C7E830100D4FA15 /* CopyNotes.app */;
 			productType = "com.apple.product-type.application";
@@ -262,6 +270,9 @@
 				Base,
 			);
 			mainGroup = 891A97412C7E830100D4FA15;
+			packageReferences = (
+				89501FCA2C87A5AB00FE69A0 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			productRefGroup = 891A974B2C7E830100D4FA15 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,6 +319,7 @@
 				891A97822C7F42BC00D4FA15 /* NoteSection.swift in Sources */,
 				891A97502C7E830100D4FA15 /* ContentView.swift in Sources */,
 				89C881562C7FC0D500A92CB5 /* DetailView.swift in Sources */,
+				89501FCE2C87B20300FE69A0 /* CheckForUpdatesViewModel.swift in Sources */,
 				891A977A2C7E833600D4FA15 /* Notes.xcdatamodeld in Sources */,
 				891A974E2C7E830100D4FA15 /* CopyNotesApp.swift in Sources */,
 				891A97872C7F4FB700D4FA15 /* SearchBar.swift in Sources */,
@@ -475,19 +487,19 @@
 				CODE_SIGN_ENTITLEMENTS = CopyNotes/CopyNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0.1;
 				DEVELOPMENT_ASSET_PATHS = "\"CopyNotes/Preview Content\"";
 				DEVELOPMENT_TEAM = P8V5RWH89Z;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CopyNotes/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2024 Clive Ke. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cliveke.CopyNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -504,19 +516,19 @@
 				CODE_SIGN_ENTITLEMENTS = CopyNotes/CopyNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0.1;
 				DEVELOPMENT_ASSET_PATHS = "\"CopyNotes/Preview Content\"";
 				DEVELOPMENT_TEAM = P8V5RWH89Z;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CopyNotes/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2024 Clive Ke. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cliveke.CopyNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -636,6 +648,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		89501FCA2C87A5AB00FE69A0 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		89501FCB2C87A5AB00FE69A0 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89501FCA2C87A5AB00FE69A0 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		891A97782C7E833600D4FA15 /* Notes.xcdatamodeld */ = {
