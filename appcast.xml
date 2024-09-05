@@ -8,7 +8,7 @@
             <sparkle:version>0.1</sparkle:version>
             <sparkle:shortVersionString>0.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>11.7</sparkle:minimumSystemVersion>
-            <enclosure url="https://cluivee.github.io/CopyNotes/CopyNotes%20v0.1.dmg" length="6203168" type="application/octet-stream" sparkle:edSignature="gQBlpWc+KG0WNkzHIZoJ5tGOFIuss0AshHG7yc2Kg/+ERfEpIcYoHBDfZ678t8UHTeKjkYlGt3aO/O0e+gquCg=="/>
+            <enclosure url="https://github.com/cluivee/CopyNotes/releases/download/v0.1/CopyNotes.v0.1.dmg" length="6203168" type="application/octet-stream" sparkle:edSignature="gQBlpWc+KG0WNkzHIZoJ5tGOFIuss0AshHG7yc2Kg/+ERfEpIcYoHBDfZ678t8UHTeKjkYlGt3aO/O0e+gquCg=="/>
         </item>
     </channel>
 </rss>
