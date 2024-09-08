@@ -47,7 +47,7 @@ class CopyNotesTests: XCTestCase {
         let note = Note(title: "To Delete", bodyText: "This note will be deleted", context: context)
         persistenceController.save()
         
-        // Fetch to ensure it exists
+        // Fetch to make sure it exists
         var fetchRequest: NSFetchRequest<Note> = Note.fetch()
         var notes = try context.fetch(fetchRequest)
         XCTAssertEqual(notes.count, 1, "Should have 1 note before deletion")
@@ -87,20 +87,4 @@ class CopyNotesTests: XCTestCase {
     }
     
 
-    
-//    func testFilteringNotes() {
-//        // Create multiple notes
-//        _ = Note(title: "Swift", bodyText: "Learn Swift", context: context)
-//        _ = Note(title: "Objective-C", bodyText: "Legacy code", context: context)
-//        _ = Note(title: "Core Data", bodyText: "Persistence layer", context: context)
-//        persistenceController.save()
-//
-//        // Simulate the search in ContentView
-//        let searchTerm = "Swift"
-//        let fetchRequest: NSFetchRequest<Note> = Note.fetch(NSPredicate(format: "title CONTAINS[cd] %@", searchTerm))
-//        let filteredNotes = try! context.fetch(fetchRequest)
-//
-//        XCTAssertEqual(filteredNotes.count, 1, "There should be 1 note matching the search term 'Swift'")
-//        XCTAssertEqual(filteredNotes.first?.title, "Swift Tutorial", "The note title should be 'Swift Tutorial'")
-//    }
 }
