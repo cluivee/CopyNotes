@@ -98,8 +98,10 @@ class CopyNotesTests: XCTestCase {
     
     
     func testFetchNotes() throws {
-        // example to test
-        let note = Note(title: "To Delete", bodyText: "This note will be deleted", context: context)
+        // example 3 notes to test
+        for i in 1...3 {
+                    _ = Note(title: "Note \(i)", bodyText: "Body \(i)", context: context)
+                }
         persistenceController.save()
         
         let fetchRequest: NSFetchRequest<Note> = Note.fetch()
