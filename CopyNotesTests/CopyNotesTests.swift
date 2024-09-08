@@ -15,7 +15,8 @@ class CopyNotesTests: XCTestCase {
     var context: NSManagedObjectContext!
     
     override func setUpWithError() throws {
-        // Setup an in-memory persistence container to avoid using the actual database
+        // Creating an in-memory persistence container to avoid using the actual database. Otherwise, tests couldn't be considered isolated since one test may overwrite the contents of another test. Also the tests aren't repeatable if the data is saved to disk, as the data in the database might grow over time and the state of the environment might be different on each test run.
+        
         persistenceController = PersistenceController(inMemory: true)
         context = persistenceController.container.viewContext
     }
