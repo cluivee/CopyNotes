@@ -17,7 +17,6 @@
 		891A977A2C7E833600D4FA15 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 891A97782C7E833600D4FA15 /* Notes.xcdatamodeld */; };
 		891A977C2C7E858700D4FA15 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A977B2C7E858700D4FA15 /* PersistenceController.swift */; };
 		891A977F2C7E868100D4FA15 /* Note+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A977E2C7E868100D4FA15 /* Note+helper.swift */; };
-		891A97822C7F42BC00D4FA15 /* NoteSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97812C7F42BC00D4FA15 /* NoteSection.swift */; };
 		891A97842C7F4E9800D4FA15 /* NSPredicate+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97832C7F4E9800D4FA15 /* NSPredicate+helper.swift */; };
 		891A97872C7F4FB700D4FA15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97862C7F4FB700D4FA15 /* SearchBar.swift */; };
 		891A97892C7F511700D4FA15 /* NoteRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891A97882C7F511700D4FA15 /* NoteRowView.swift */; };
@@ -59,7 +58,6 @@
 		891A97792C7E833600D4FA15 /* Notes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notes.xcdatamodel; sourceTree = "<group>"; };
 		891A977B2C7E858700D4FA15 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		891A977E2C7E868100D4FA15 /* Note+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+helper.swift"; sourceTree = "<group>"; };
-		891A97812C7F42BC00D4FA15 /* NoteSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSection.swift; sourceTree = "<group>"; };
 		891A97832C7F4E9800D4FA15 /* NSPredicate+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+helper.swift"; sourceTree = "<group>"; };
 		891A97862C7F4FB700D4FA15 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		891A97882C7F511700D4FA15 /* NoteRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRowView.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 			children = (
 				89A302A22C850DD100080670 /* Info.plist */,
 				89C881592C8238C300A92CB5 /* TextFieldObserver.swift */,
-				891A97812C7F42BC00D4FA15 /* NoteSection.swift */,
 				891A974D2C7E830100D4FA15 /* CopyNotesApp.swift */,
 				891A974F2C7E830100D4FA15 /* ContentView.swift */,
 				89501FCD2C87B20300FE69A0 /* CheckForUpdatesViewModel.swift */,
@@ -316,7 +313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				891A977F2C7E868100D4FA15 /* Note+helper.swift in Sources */,
-				891A97822C7F42BC00D4FA15 /* NoteSection.swift in Sources */,
 				891A97502C7E830100D4FA15 /* ContentView.swift in Sources */,
 				89C881562C7FC0D500A92CB5 /* DetailView.swift in Sources */,
 				89501FCE2C87B20300FE69A0 /* CheckForUpdatesViewModel.swift in Sources */,
