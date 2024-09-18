@@ -6,23 +6,33 @@
 //
 
 
+
+
+
+
+
 import SwiftUI
 
 struct ContentView: View {
-    
+
     // This is just to scroll to the bottom
     @Namespace var bottomID
-    
+
     @Environment(\.managedObjectContext) var context
     @FetchRequest(fetchRequest: Note.fetch(), animation: .default)
     var notes: FetchedResults<Note>
-    
+
+    // Storing selectedNote num for state restoration. Core Data objects cannot be stored in AppStorage, only primitive types.
+    // SceneStorage seems more suited for iOS. On MacOS if the window is closed, the Scene is explicitly destroyed so the data is also destroyed
+    @AppStorage("selectedNoteNum") private var selectedNoteNum: Int?
+
     @State private var selectedNote: Note?
+
     @State private var searchTerm = ""
     @State private var isEditingMode = false
     @State private var alertIsShowing = false
-    
-    
+
+
     // Using a computed property here to filter the notes for the searchbar, but maybe using a predicate might have better performance
     var filteredNotes: [Note] {
         if searchTerm.isEmpty {
@@ -31,8 +41,8 @@ struct ContentView: View {
             return notes.filter { $0.title.localizedCaseInsensitiveContains(searchTerm) }
         }
     }
-    
-    
+
+
     var body: some View {
         ScrollViewReader { proxy in
             NavigationView  {
@@ -74,8 +84,6 @@ struct ContentView: View {
                                     withAnimation {
                                         proxy.scrollTo(bottomID, anchor: .bottom)
                                     }
-                                    
-                                    
                                 }
                             })
                             {
@@ -85,19 +93,25 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .onChange(of: selectedNote) {val in
+                        selectedNoteNum = val?.num ?? 0
+                    }
                     // Text View for debugging
-//                    Text(String(describing: type(of: notes.count)))
-                    
+                    //                    Text(String(describing: type(of: notes.count)))
+
                 }
-                
-                
+
                 if let selected = selectedNote {
                     DetailView(note: selected, isEditingMode: $isEditingMode, deleteFunction: {deleteSelectedNote(deletedNote: selected)})
                 } else {
                     Text("No note selected")
                         .padding()
                 }
-                
+
+            }
+            .onAppear {
+                // Restore selected note if available
+                restoreSelectedNote()
             }
             .alert(isPresented: $alertIsShowing) {
                 // single button Alert
@@ -105,69 +119,80 @@ struct ContentView: View {
             }
         }
     }
-    
+
     // MARK: functions:
+
+
+    private func restoreSelectedNote() {
+        print("selectednoteNum is \(selectedNoteNum)")
+        print("selectednote restored \(selectedNote)")
+            if let num = selectedNoteNum {
+                selectedNote = notes.first(where: { $0.num == num })
+            }
+        }
+
     private func copyToClipboard(bodyText: String) {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.setString(bodyText, forType: .string)
-        
+
     }
-    
+
     private func addNote(scrollValue: ScrollViewProxy) {
         isEditingMode = true
         if notes.count < 1000 {
             let newNote = Note(title: "Title", bodyText: "", context: context)
             selectedNote = newNote
-            print("first count: ", notes.count)
-            
+            selectedNoteNum = newNote.num
+
             PersistenceController.shared.save()
-            print("second count: ", notes.count)
+
         } else {
             alertIsShowing.toggle()
         }
-        
+
     }
-    
+
     private func deleteSelectedNote(deletedNote: Note) {
         context.delete(deletedNote)
-        
+
         // These two lines are just to create another array, so we can filter through that array and remove the deleted note, as we don't seem to be able to use array methods (such as .remove) on the fetchedResults directly
         var revisedNotes = notes.map{ $0 }
-        
+
         // This is just to remember the index of the note which was deleted, so we can later update selectednote to the note that was before it
         var rememberedIndex = 0
         if let idx = revisedNotes.firstIndex(where: { $0 === deletedNote }) {
             rememberedIndex = idx-1
             revisedNotes.remove(at: idx)
         }
-        
+
         for (index, note) in revisedNotes.enumerated() {
-//            print("the deleted note was at index: ", rememberedIndex)
+            //            print("the deleted note was at index: ", rememberedIndex)
             if (index == rememberedIndex) {
                 selectedNote = note
+                selectedNoteNum = note.num
             }
             note.num = index + 1
         }
-        
-        
+
+
         PersistenceController.shared.save()
     }
-    
+
     private func moveNotes(from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
         //        var revisedNotes = notes.sorted { $0.num < $1.num }
         var revisedNotes = notes.map{ $0 }
-        
+
         // This line moves the item. The IndexSet contains all the items that are to be moved (usually just one item), and the destination (an Int) contains the position where it will be moved to
         revisedNotes.move(fromOffsets: source, toOffset: destination)
-        
+
         // renumber in reverse order to minimise changes to the indices
         for reverseIndex in stride(from: revisedNotes.count - 1, through: 0, by: -1 )
         {revisedNotes[reverseIndex].num = reverseIndex + 1}
-        
+
         PersistenceController.shared.save()
-        
+
     }
 }
 
@@ -181,7 +206,6 @@ struct BlueButtonStyle: ButtonStyle {
             .padding(1)
     }
 }
-
 
 
 

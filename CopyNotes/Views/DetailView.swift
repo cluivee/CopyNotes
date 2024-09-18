@@ -115,7 +115,6 @@ struct DetailView: View {
             textObserver.currentBodyText = val.bodyText
             isNewNoteTitle = true
             isNewNoteBody = true
-            print("has note changed")
             // This is where we're saving when the note is changed. Maybe it makes more sense to do this in ContentView but for now it works
             PersistenceController.shared.save()
         }
